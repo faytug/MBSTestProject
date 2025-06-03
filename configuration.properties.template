@@ -1,0 +1,10 @@
+MBS_WebUrl=https://test_edilecek_site_urlsi_buraya_yazilir.com
+swaggerUrl=https://test_edilecek swagger_site_urlsi_buraya_yazilir.com
+loginUrl=https://test_edilecek login_site_urlsi_buraya_yazilir.com
+dashboardUrl=https://test_edilecek_db site_urlsi_buraya_yazilir.com
+browser=chrome
+validUsername=kullanici_adinizi_yazin
+validPassword=sifrenizi_yazin
+invalidUsername=wronguser
+invalidPassword=Wrong@123
+errorMessage=Invalid username or password
