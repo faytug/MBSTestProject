@@ -28,5 +28,8 @@ public class LoginPage {
     @FindBy(xpath="//span[normalize-space()='Ana Sayfa']")
     public WebElement dashboardUrl;
 
+// LoginPage.java dosyasının içine, diğer @FindBy tanımlarının yanına ekleyin:
 
+    @FindBy(id = "login-error")
+    public WebElement loginErrorText;
 }

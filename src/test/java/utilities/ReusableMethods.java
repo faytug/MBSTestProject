@@ -89,13 +89,13 @@ public class ReusableMethods {
             e.printStackTrace();
         }
     }
-
+/*
     //===============Explicit Wait==============//
     public static WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3));
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
-
+*/
     public static WebElement waitForVisibility(By locator, int timeout) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -302,5 +302,50 @@ public class ReusableMethods {
     public static void scrollPageDownWithJS(WebDriver driver) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,25)", "");
+    }
+
+    /**
+     * Bir elementin görünür olmasını bekler.
+     * @param element Beklenecek WebElement.
+     * @param timeout Saniye cinsinden maksimum bekleme süresi.
+     * @return Görünür hale gelen WebElement.
+     */
+    public static WebElement waitForVisibility(WebElement element, int timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    /**
+     * Bir elementin tıklanabilir olmasını (görünür ve aktif) bekler.
+     * @param element Beklenecek WebElement.
+     * @param timeout Saniye cinsinden maksimum bekleme süresi.
+     * @return Tıklanabilir hale gelen WebElement.
+     */
+    public static WebElement waitForClickability(WebElement element, int timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    /**
+     * Belirtilen saniye kadar statik bekleme yapar.
+     * !! Sadece başka bir çözüm bulunamadığında son çare olarak kullanılmalıdır !!
+     * @param seconds Beklenecek süre (saniye).
+     */
+    public static void sleep(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Sayfa URL'sinin belirli bir metni içermesini bekler.
+     * @param urlFraction URL'de bulunması beklenen metin parçası.
+     * @param timeout Saniye cinsinden maksimum bekleme süresi.
+     */
+    public static void waitForUrlToContain(String urlFraction, int timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
+        wait.until(ExpectedConditions.urlContains(urlFraction));
     }
 }

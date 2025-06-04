@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.mbs</groupId>
@@ -7,101 +7,86 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>MBSTestProject</name>
-  <url>http://maven.apache.org</url>
-
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <selenium.version>4.26.0</selenium.version>
+    <cucumber.version>7.15.0</cucumber.version> <junit.version>5.10.2</junit.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-compress</artifactId>
+        <version>1.26.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>4.26.0</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>${selenium.version}</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-java</artifactId>
-      <version>7.11.1</version>
-    </dependency>
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-junit</artifactId>
-      <version>7.11.1</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-TestNG -->
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>7.10.2</version>
+      <version>${cucumber.version}</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
-      <groupId>me.jvt.cucumber</groupId>
-      <artifactId>reporting-plugin</artifactId>
-      <version>7.11.0</version>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit-platform-engine</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
     </dependency>
-    <!--If you want to get rid of SLF4J Failed to load message from the console -->
+
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>2.0.16</version>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-suite</artifactId>
+      <version>1.10.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>2.0.16</version>
+      <version>2.0.13</version>
+      <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <version>2.0.16</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
     <dependency>
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
       <version>1.0.2</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
-      <version>5.4.0</version>
+      <version>5.3.0</version>
     </dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
-
-    <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-    <dependency>
-      <groupId>io.github.bonigarcia</groupId>
-      <artifactId>webdrivermanager</artifactId>
-      <version>6.1.0</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v136 -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-devtools-v136</artifactId>
+      <artifactId>selenium-devtools-v137</artifactId>
       <version>4.33.0</version>
     </dependency>
 
@@ -111,42 +96,18 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
         <configuration>
           <testFailureIgnore>true</testFailureIgnore>
-          <runOrder>Alphabetical</runOrder>
           <includes>
             <include>**/Runner*.java</include>
-            <include>**/*FailedTestRunner.java</include>
           </includes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>tech.grasshopper</groupId>
-        <artifactId>extentreports-cucumberjson-plugin</artifactId>
-        <version>2.15.0</version>
-        <executions>
-          <execution>
-            <id>report</id>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>extentreport</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <cucumberJsonReportDirectory>${project.build.directory}/json-report</cucumberJsonReportDirectory>
-          <extentPropertiesDirectory>${}</extentPropertiesDirectory>
-          <displayAllHooks>false</displayAllHooks>
-          <strictCucumber6Behavior>true</strictCucumber6Behavior>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version> <!-- Bu satırı değiştirin -->
-        <configuration>
         </configuration>
       </plugin>
     </plugins>

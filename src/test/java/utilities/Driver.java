@@ -1,25 +1,21 @@
 package utilities;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import java.util.concurrent.TimeUnit;
+import java.time.Duration; // TimeUnit yerine Duration kullanıldı (Güncel kullanım)
 
 public class Driver {
-
 
     private static WebDriver driver;
 
     public static WebDriver getDriver() {
         if (driver == null) {
+            // driver sadece null ise yeni bir oturum aç
             switch (ConfigReader.getProperty("browser")) {
-
                 case "chrome":
-                    WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
                     break;
                 case "headlesschrome":
@@ -28,39 +24,25 @@ public class Driver {
                     driver = new ChromeDriver(options);
                     break;
                 case "firefox":
-                    // WebDriverManager.firefoxdriver().setup();
-
                     driver = new FirefoxDriver();
                     break;
                 case "edge":
-                    // WebDriverManager.edgedriver().setup();
-
                     driver = new EdgeDriver();
                     break;
-                //case "chrome":
-                //    WebDriverManager.chromedriver().setup();
-                //    ChromeOptions co = new ChromeOptions();
-                //    co.addArguments("--remote-allow-origins=*");
-                //    driver = new ChromeDriver(co);
-                //    break;
             }
-
+            // Ayarlar sadece driver ilk oluşturulduğunda bir kez yapılır
             driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)); // Güncel ve daha makul bir süre
         }
+        // return ifadesi her zaman çalışması için if bloğunun dışında olmalı
         return driver;
     }
 
+    // closeDriver metodu getDriver metodunun DIŞINDA olmalı
     public static void closeDriver() {
         if (driver != null) {
-            driver.close();
-            driver = null;
+            driver.quit();
+            driver = null; // driver'ı null yaparak bir sonraki getDriver() çağrısında yeni bir oturum açılmasını sağlarız
         }
-
-
     }
-
-
 }
-
